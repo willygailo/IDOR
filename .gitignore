@@ -1,0 +1,64 @@
+# IDOR Bug Bounty Workspace — .gitignore
+# ========================================
+# NEVER commit real tokens, session data, or victim PII to git.
+
+# ─── Sensitive Output Files ───────────────────────────────────────────────────
+*.json
+!package.json
+idor_results.json
+post_idor_results.json
+threaded_results.json
+blind_idor_report.json
+jwt_idor_report.json
+endpoints.json
+
+# ─── Screenshots (may contain PII) ───────────────────────────────────────────
+poc/screenshots/*.png
+poc/screenshots/*.jpg
+poc/screenshots/*.mp4
+poc/screenshots/*.webm
+
+# ─── Submitted/Accepted Reports (may contain real target data) ────────────────
+reports/submitted/
+reports/accepted/
+reports/rejected/
+
+# ─── Target-specific recon (may contain sensitive endpoint data) ─────────────
+targets/recon/recon-*.md
+targets/scope/scope-*.md
+targets/notes/notes-*.md
+
+# ─── Credentials / Tokens ────────────────────────────────────────────────────
+*.env
+.env
+*.key
+*.pem
+tokens.txt
+sessions.txt
+cookies.txt
+
+# ─── Python Artifacts ────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.venv/
+
+# ─── OS Files ────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Editor Files ────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
+*.log
+logs/

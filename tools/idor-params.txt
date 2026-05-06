@@ -1,0 +1,183 @@
+# IDOR Parameter Wordlist
+# ========================
+# Use with ffuf, Burp Intruder, or your own scripts to fuzz unknown parameters.
+# Common object reference parameter names found in real-world APIs.
+#
+# Usage with ffuf:
+#   ffuf -u "https://target.com/api/resource?FUZZ=1" -w idor-params.txt -mc 200,302
+#
+# Usage with idor_enum.py:
+#   Loop through this list as --param values
+
+# ─── Generic ID Parameters ───────────────────────────────────────────────────
+id
+uid
+uuid
+rid
+oid
+pid
+gid
+tid
+sid
+kid
+ref
+key
+token
+hash
+code
+slug
+handle
+
+# ─── User & Account ──────────────────────────────────────────────────────────
+user_id
+userid
+userID
+user
+account_id
+accountID
+account
+profile_id
+profileID
+member_id
+memberID
+customer_id
+customerID
+client_id
+clientID
+owner_id
+ownerID
+author_id
+authorID
+creator_id
+
+# ─── Financial & Billing ─────────────────────────────────────────────────────
+invoice_id
+invoiceID
+invoice
+order_id
+orderID
+order
+payment_id
+paymentID
+payment
+transaction_id
+transactionID
+txn_id
+receipt_id
+subscription_id
+subscriptionID
+plan_id
+planID
+billing_id
+
+# ─── Documents & Files ───────────────────────────────────────────────────────
+file_id
+fileID
+file
+document_id
+documentID
+doc_id
+docID
+attachment_id
+attachmentID
+upload_id
+uploadID
+resource_id
+resourceID
+asset_id
+assetID
+media_id
+image_id
+video_id
+report_id
+reportID
+export_id
+
+# ─── Messaging & Communication ───────────────────────────────────────────────
+message_id
+messageID
+msg_id
+thread_id
+threadID
+conversation_id
+conversationID
+chat_id
+chatID
+room_id
+notification_id
+email_id
+
+# ─── Project & Task Management ───────────────────────────────────────────────
+project_id
+projectID
+task_id
+taskID
+ticket_id
+ticketID
+issue_id
+issueID
+board_id
+card_id
+item_id
+itemID
+entry_id
+record_id
+recordID
+case_id
+caseID
+request_id
+
+# ─── Organization & Access ───────────────────────────────────────────────────
+org_id
+orgID
+organization_id
+team_id
+teamID
+group_id
+groupID
+role_id
+roleID
+workspace_id
+workspaceID
+tenant_id
+tenantID
+company_id
+department_id
+
+# ─── Session & Auth ──────────────────────────────────────────────────────────
+session_id
+sessionID
+access_token
+refresh_token
+api_key
+apikey
+secret
+nonce
+csrf
+
+# ─── Miscellaneous ───────────────────────────────────────────────────────────
+post_id
+postID
+comment_id
+commentID
+review_id
+listing_id
+product_id
+productID
+sku
+category_id
+tag_id
+event_id
+eventID
+booking_id
+bookingID
+reservation_id
+appointment_id
+survey_id
+form_id
+response_id
+submission_id
+log_id
+audit_id
+version_id
+revision_id

